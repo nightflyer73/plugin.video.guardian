@@ -4,7 +4,7 @@
        version="1.0.0"
        provider-name="Nightflyer">
   <requires>
-    <import addon="xbmc.python" version="1.0"/>
+    <import addon="xbmc.python" version="2.1.0"/>
     <import addon="script.module.beautifulsoup" version="3.0.8"/>
   </requires>
   <extension point="xbmc.python.pluginsource"
@@ -17,8 +17,9 @@
     <summary>Video news and features from The Guardian</summary>
     <description>All the latest video content covering news, sport, entertainment and the arts from the Guardian.</description>
     <license>GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007</license>
-    <forum></forum>
+    <forum>http://forum.xbmc.org/showthread.php?tid=175703</forum>
     <website>https://github.com/nightflyer73/plugin.video.guardian</website>
+    <email></email>
     <source>https://github.com/nightflyer73/plugin.video.guardian</source>
   </extension>
 </addon>
