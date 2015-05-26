@@ -7,7 +7,7 @@ from email.utils import mktime_tz
 from BeautifulSoup import BeautifulSoup
 
 class GuardianTV:
-    __USERAGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:24.0) Gecko/20100101 Firefox/24.0"
+    __USERAGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0"
     
     def __init__(self):
         opener = urllib2.build_opener()
