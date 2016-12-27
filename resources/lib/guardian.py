@@ -92,6 +92,6 @@ class GuardianTV:
             iframe = tree.find("iframe")
             if iframe is not None:
                 videoId = iframe["id"].replace("ytplayer-","")
-                video["url"] = "plugin://plugin.video.youtube/?action=play_video&videoid=%s" % videoId
+                video["url"] = "plugin://plugin.video.youtube/play/?video_id=%s" % videoId
         
         return video
