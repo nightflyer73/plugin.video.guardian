@@ -46,6 +46,7 @@ def show_categories():
     xbmcplugin.endOfDirectory(handle=handle, succeeded=True)
 
 def show_video_files(url):
+    xbmc.log("Category URL: " + url)
     gtv = GuardianTV()
     items = gtv.getVideoByChannel(url)
     for item in items:
@@ -56,6 +57,7 @@ def show_video_files(url):
     xbmcplugin.endOfDirectory(handle=handle, succeeded=True)
 
 def play(pageUrl):
+    xbmc.log("Page URL: " + pageUrl)
     gtv = GuardianTV()
     video = gtv.getVideoMetadata(pageUrl)
     
@@ -64,6 +66,8 @@ def play(pageUrl):
         dialog = xbmcgui.Dialog()
         dialog.ok("The Guardian", "Video URL not found.")
         return
+    
+    xbmc.log("Video URL: " + video["url"])
         
     liStyle=xbmcgui.ListItem(path=video["url"])
     xbmcplugin.setResolvedUrl(handle=handle, succeeded=True, listitem=liStyle)
