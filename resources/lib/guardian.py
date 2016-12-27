@@ -1,4 +1,5 @@
 import urllib2
+import urlparse
 from xml.dom import minidom
 import time
 import datetime
@@ -59,10 +60,11 @@ class GuardianTV:
                     mimeType = ""
                 
                 imageUrl = mediaContent.attributes["url"].value
-                imageExt = imageUrl[imageUrl.rfind(".")+1:]
+                scheme, netloc, path, params, query, fragment = urlparse.urlparse(imageUrl)
+                imageExt = path[path.rfind(".")+1:]
                 imageWidth = mediaContent.attributes["width"].value
                 
-                if (mimeType == "image/jpeg" or imageExt == "jpg" or imageExt == "jpeg") and imageWidth > width:
+                if (mimeType == "image/jpeg" or mimeType == "image/png" or imageExt == "jpg" or imageExt == "jpeg" or imageExt == "png" ) and imageWidth > width:
                     video["thumb"] = imageUrl
                     width = imageWidth
             
