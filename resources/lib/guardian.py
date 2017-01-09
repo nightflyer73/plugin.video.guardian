@@ -86,12 +86,6 @@ class GuardianTV:
         
         videoNode = tree.find("video")
         if videoNode is not None:
-            video["url"]  = videoNode.find("source", {"type": "video/mp4"})["src"]
-        else:
-            # Youtube
-            iframe = tree.find("iframe")
-            if iframe is not None:
-                videoId = iframe["id"].replace("ytplayer-","")
-                video["url"] = "plugin://plugin.video.youtube/play/?video_id=%s" % videoId
+            video["url"] = videoNode.find("source", {"type": "video/mp4"})["src"]
         
         return video
