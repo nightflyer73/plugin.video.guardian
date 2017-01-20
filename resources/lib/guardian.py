@@ -3,6 +3,8 @@ import urlparse
 from xml.dom import minidom
 import time
 import datetime
+import re
+import json
 from email.utils import parsedate_tz
 from email.utils import mktime_tz
 from BeautifulSoup import BeautifulSoup
@@ -87,5 +89,21 @@ class GuardianTV:
         videoNode = tree.find("video")
         if videoNode is not None:
             video["url"] = videoNode.find("source", {"type": "video/mp4"})["src"]
-        
+        else:
+            # Docs on YouTube
+            figure = tree.find("figure")
+            if figure is not None:
+                dataInteractiveUrl = figure["data-interactive"]
+                sheetName = dataInteractiveUrl[dataInteractiveUrl.find("/docs-")+6:dataInteractiveUrl.find("/boot.js")]
+                
+                dataInteractive = urllib2.urlopen(dataInteractiveUrl).read()
+                match = re.search(r"'sheetId': '([A-Za-z0-9]+)',", dataInteractive, re.DOTALL)
+                sheetId = match.group(1)
+
+                sheetUrl = "https://interactive.guim.co.uk/docsdata/%s.json" % sheetId
+                sheets = json.load(urllib2.urlopen(sheetUrl))
+                youTubeId = sheets["sheets"][sheetName][0]["youTubeId"]
+
+                video["url"] = "plugin://plugin.video.youtube/play/?video_id=%s" % youTubeId
+         
         return video
