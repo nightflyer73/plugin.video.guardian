@@ -94,11 +94,16 @@ class GuardianTV:
             figure = tree.find("figure")
             if figure is not None:
                 dataInteractiveUrl = figure["data-interactive"]
-                sheetName = dataInteractiveUrl[dataInteractiveUrl.find("/docs-")+6:dataInteractiveUrl.find("/boot.js")]
                 
                 dataInteractive = urllib2.urlopen(dataInteractiveUrl).read()
-                match = re.search(r"'sheetId': '([A-Za-z0-9]+)',", dataInteractive, re.DOTALL)
-                sheetId = match.group(1)
+                match = re.search(r"interactiveConfig = ({[^\}]+});", dataInteractive, re.DOTALL)
+                string = match.group(1)
+                # Convert to JSON
+                string = string.replace("'", '"')
+                
+                interactiveConfig = json.loads(string)
+                sheetName = interactiveConfig["sheetName"]
+                sheetId = interactiveConfig["sheetId"]
 
                 sheetUrl = "https://interactive.guim.co.uk/docsdata/%s.json" % sheetId
                 sheets = json.load(urllib2.urlopen(sheetUrl))
