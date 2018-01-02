@@ -62,7 +62,7 @@ class GuardianTV:
                     mimeType = ""
                 
                 imageUrl = mediaContent.attributes["url"].value
-                scheme, netloc, path, params, query, fragment = urlparse.urlparse(imageUrl)
+                path = urlparse.urlsplit(imageUrl).path
                 imageExt = path[path.rfind(".")+1:]
                 imageWidth = mediaContent.attributes["width"].value
                 
