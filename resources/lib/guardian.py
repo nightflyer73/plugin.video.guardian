@@ -91,10 +91,15 @@ class GuardianTV:
             video["url"] = videoNode.find("source", {"type": "video/mp4"})["src"]
 
         # Video on YouTube
-        iframeNode = tree.find("iframe", "youtube-media-atom__iframe")
-        if iframeNode is not None:
-            youTubeId = iframeNode["id"][8:]
+        divNode = tree.find("div", "youtube-media-atom__iframe")
+        if divNode is not None:
+            youTubeId = divNode["data-asset-id"]
             video["url"] = "plugin://plugin.video.youtube/play/?video_id=%s" % youTubeId
+            
+        # Podcasts
+        podcastNode = tree.find("figure", "podcast__player podcast__section")
+        if podcastNode is not None:
+            video["url"] = podcastNode["data-download-url"]
             
         # Documentaries on YouTube
         figureNode = tree.find("figure", "element element-interactive interactive")
