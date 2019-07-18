@@ -19,7 +19,7 @@ class GuardianTV:
         urllib2.install_opener(opener)
 
     def getChannels(self):
-        pageUrl = "http://www.theguardian.com/video"
+        pageUrl = "https://www.theguardian.com/video"
         data = urllib2.urlopen(pageUrl).read()
         tree = BeautifulSoup(data, convertEntities=BeautifulSoup.HTML_ENTITIES)
         
